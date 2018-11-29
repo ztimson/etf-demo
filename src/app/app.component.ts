@@ -6,7 +6,8 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
     chartResults; // This is where the chart reads the data from
-    chartHeight = '100%';
+    chartHeight = '100%'; // Dynamic height for chart
+    files: string[] = [];
 
     // ngx-charts requires a different data structure than the hash map we built so I will use a setter to handle converting it when we go to save the processed data.
     private _data;
@@ -23,6 +24,8 @@ export class AppComponent {
         // Because we enabled uploading multiple files at once we need to process each one individually
         const files: File[] = Array.from(fileList);
         files.forEach(file => {
+            this.files.push(file.name);
+
             // Process CSV
             const reader = new FileReader();
             reader.onload = (e: ProgressEvent) => {

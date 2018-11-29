@@ -3,6 +3,10 @@
     <img class="mr-3" src="assets/logo.png" height="36px" width="auto">
     <span>ETF Demo</span>
     <span class="mx-auto"><!-- Spacer --></span>
+    <mat-chip-list class="mr-2">
+        <mat-chip *ngFor="let file of files" color="primary">{{file}}</mat-chip>
+    </mat-chip-list>
+
     <button mat-button (click)="fileUploader.click()">
         <mat-icon>add</mat-icon>
         Upload
