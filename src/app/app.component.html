@@ -1,5 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar>
+    <img class="mr-3" src="assets/logo.png" height="36px" width="auto">
     <span>ETF Demo</span>
     <span class="mx-auto"><!-- Spacer --></span>
     <button mat-button (click)="fileUploader.click()">
@@ -7,6 +8,7 @@
         Upload
     </button>
 </mat-toolbar>
+<img *ngIf="!chartResults" class="float-right mt-2 mr-5" src="assets/starthere.png">
 <div *ngIf="chartResults" class="w-100" [style.height]="chartHeight">
     <ngx-charts-bar-horizontal-2d #chart
                                 [results]="chartResults"
@@ -15,5 +17,4 @@
                                 [yAxisTickFormatting]="format">
     </ngx-charts-bar-horizontal-2d>
 </div>
-
 <input #fileUploader type="file" accept="text/csv" multiple hidden (change)="upload(fileUploader.files)">
