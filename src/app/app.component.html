@@ -14,7 +14,7 @@
                                 [results]="chartResults"
                                 [xAxis]="true"
                                 [yAxis]="true"
-                                [yAxisTickFormatting]="format">
+                                [xAxisTickFormatting]="format">
     </ngx-charts-bar-horizontal-2d>
 </div>
 <input #fileUploader type="file" accept="text/csv" multiple hidden (change)="upload(fileUploader.files)">
