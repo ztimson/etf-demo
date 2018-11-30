@@ -1,15 +1,17 @@
-import {Component, ElementRef, EventEmitter, ViewChild} from '@angular/core';
+import {Component, ElementRef, NgZone, ViewChild} from '@angular/core';
 import {timer} from './timer';
 import {colorScheme} from './colorScheme';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+    @ViewChild('fileUploader') fileUploader: ElementRef;
     @ViewChild('holdingInput') holdingInput: ElementRef;
 
-    autoCompleteList = new EventEmitter<string[]>(); // Async pipe to provide autocomplete list after being filtered by the text input
+    autoCompleteList = new BehaviorSubject<string[]>([]); // Async pipe to provide autocomplete list after being filtered by the text input
     colorScheme = colorScheme; // colors
     chartResults = []; // This is where the chart reads the data from
     holdings: string[] = []; // All the merged holdings
@@ -39,7 +41,7 @@ export class AppComponent {
         this.autoCompleteList.next(this.holdings);
     }
 
-    constructor() {
+    constructor(private ngZone: NgZone) {
         // Hack to connect angular context to the native one
         setInterval(() => this.timer = Math.round(window['timer'] * 10) / 10, 250);
     }
@@ -50,7 +52,7 @@ export class AppComponent {
         this.data = Object.assign({}, this.data);
     }
 
-    search(text: string) {
+    search(text?: string) {
         // Filter the holdings list by the text and push it through the async pipe
         if(!text) this.autoCompleteList.next(this.holdings);
         this.autoCompleteList.next(this.holdings.filter(holding => holding.toLowerCase().indexOf(text) != -1));
@@ -58,6 +60,8 @@ export class AppComponent {
 
     @timer
     upload(fileList: FileList) {
+        if(!fileList || !fileList.length) return;
+
         // Because we enabled uploading multiple fileNames at once we need to process each one individually
         const files: File[] = Array.from(fileList);
         files.forEach(file => {
@@ -84,9 +88,11 @@ export class AppComponent {
             };
             reader.readAsText(file);
         });
+        this.fileUploader.nativeElement.value = "";
     }
 
     updateGraph(holding?: string) {
+        // Add holding to chart
         if(holding) {
             this.graphHoldings.push(holding);
             this.holdingInput.nativeElement.value = '';

@@ -27,13 +27,14 @@
     <!-- Input for selecting holdings -->
     <div class="p-3">
         <mat-form-field class="w-50" appearance="fill">
+            <mat-label>Add Holding</mat-label>
             <mat-chip-list #chipList>
                 <mat-chip *ngFor="let holding of graphHoldings; let i = index" [removable]="true" (removed)="graphHoldings.splice(i, 1); updateGraph()">
                     {{holding}}
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
                 <input #holdingInput class="w-100"
-                       placeholder="Add Holdings"
+                       placeholder="Search"
                        [matAutocomplete]="auto"
                        [matChipInputFor]="chipList"
                        (keyup)="search($event.target.value)">
