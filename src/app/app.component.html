@@ -1,30 +1,57 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!-- Toolbar -->
 <mat-toolbar>
     <img class="mr-3" src="assets/logo.png" height="36px" width="auto">
     <span class="mr-3">ETF Demo</span>
     <small *ngIf="timer" class="text-muted">{{timer}} microseconds to upload</small>
     <span class="mx-auto"><!-- Spacer --></span>
     <mat-chip-list class="mr-2">
-        <mat-chip *ngFor="let file of fileNames; let i = index" class="text-white" [style.backgroundColor]="colorScheme.domain[i]"
+        <mat-chip *ngFor="let file of fileNames; let i = index" class="text-white"
+                  [style.backgroundColor]="colorScheme.domain[i]"
                   [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
             {{file}}
             <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
     </mat-chip-list>
-
     <button mat-button (click)="fileUploader.click()">
         <mat-icon>add</mat-icon>
         Upload
     </button>
+    <input #fileUploader type="file" accept="text/csv" multiple hidden (change)="upload(fileUploader.files)">
 </mat-toolbar>
-<img *ngIf="!chartResults" class="float-right mt-2 mr-5" src="assets/starthere.png">
-<div *ngIf="chartResults" class="w-100" [style.height]="chartHeight">
-    <ngx-charts-bar-horizontal-2d #chart
-                                  [scheme]="colorScheme"
-                                  [results]="chartResults"
-                                  [xAxis]="true"
-                                  [yAxis]="true"
-                                  [xAxisTickFormatting]="format">
-    </ngx-charts-bar-horizontal-2d>
+
+<!-- Start Here image -->
+<img *ngIf="!fileNames.length" class="float-right mt-2 mr-5" src="assets/starthere.png">
+
+<!-- Content -->
+<div *ngIf="fileNames.length" class="content-height w-100" style="overflow: hidden auto">
+    <!-- Input for selecting holdings -->
+    <div class="p-3">
+        <mat-form-field class="w-50">
+            <mat-chip-list #chipList>
+                <mat-chip *ngFor="let holding of graphHoldings; let i = index" [removable]="true" (removed)="graphHoldings.splice(i, 1); updateGraph()">
+                    {{holding}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input #holdingInput class="w-100"
+                       placeholder="Add Holdings"
+                       [matAutocomplete]="auto"
+                       [matChipInputFor]="chipList"
+                       (keyup)="search($event.target.value)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="updateGraph($event.option.value); holdingInput.blur()">
+                <mat-option *ngFor="let holding of autoCompleteList | async" [value]="holding">
+                    {{holding}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
+    <!-- Chart -->
+    <ngx-charts-bar-vertical-2d #chart
+                                [scheme]="colorScheme"
+                                [results]="chartResults"
+                                [xAxis]="true"
+                                [yAxis]="true"
+                                [yAxisTickFormatting]="format">
+    </ngx-charts-bar-vertical-2d>
 </div>
-<input #fileUploader type="file" accept="text/csv" multiple hidden (change)="upload(fileUploader.files)">

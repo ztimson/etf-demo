@@ -10,6 +10,14 @@ html, body {
     font-family: 'Archivo', sans-serif;
 }
 
+.content-height {
+    height: calc(100vh - 64px);
+}
+
+.w-50 {
+    width: 50%;
+}
+
 // Bootstrap overrides
 .text-muted {
     color: #bbbbbb !important;

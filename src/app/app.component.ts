@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, EventEmitter, ViewChild} from '@angular/core';
 import {timer} from './timer';
 import {colorScheme} from './colorScheme';
 
@@ -7,10 +7,16 @@ import {colorScheme} from './colorScheme';
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+    @ViewChild('holdingInput') holdingInput: ElementRef;
+
+    autoCompleteList = new EventEmitter<string[]>(); // Async pipe to provide autocomplete list after being filtered by the text input
     colorScheme = colorScheme; // colors
-    chartResults; // This is where the chart reads the data from
-    chartHeight = '100%'; // Dynamic height for chart
+    chartResults = []; // This is where the chart reads the data from
+    holdings: string[] = []; // All the merged holdings
+    fileNames: string[] = []; // All the filenames
+    mergedData = {}; // All the holdings merged together
     timer = window['timer']; // Async pipe to display the timed data
+    graphHoldings: string[] = []; // Holdings we are graphing
 
     // ngx-charts requires a different data structure than the hash map we built so I will use a setter to handle converting it when we go to save the processed data.
     private _data = {};
@@ -19,7 +25,7 @@ export class AppComponent {
         this._data = data;
 
         // merge the files together
-        let mergedData = Object.values(data).reduce((acc, file) => {
+        this.mergedData = Object.values(data).reduce((acc, file) => {
             Object.keys(file).forEach(key =>  {
                 if(!acc[key]) acc[key] = [];
                 file[key].forEach(val => acc[key].push(val));
@@ -27,14 +33,14 @@ export class AppComponent {
             return acc;
         }, {});
 
-        // Take the merged data set and get everything ready for it to be charted
-        this.chartHeight = `${Object.keys(mergedData).length * 100}px`;
-        this.chartResults = Object.keys(mergedData).map(key => ({name: key, series: mergedData[key].map((val, i) => ({name: i, value: val}))}));
+        // Store the keys for easy referencing
+        this.fileNames = Object.keys(this.data);
+        this.holdings = Object.keys(this.mergedData).sort();
+        this.autoCompleteList.next(this.holdings);
     }
 
-    get fileNames() { return Object.keys(this.data); }
-
     constructor() {
+        // Hack to connect angular context to the native one
         setInterval(() => this.timer = Math.round(window['timer'] * 10) / 10, 250);
     }
 
@@ -42,6 +48,12 @@ export class AppComponent {
         // Remove the file
         delete this.data[fileName];
         this.data = Object.assign({}, this.data);
+    }
+
+    search(text: string) {
+        // Filter the holdings list by the text and push it through the async pipe
+        if(!text) this.autoCompleteList.next(this.holdings);
+        this.autoCompleteList.next(this.holdings.filter(holding => holding.toLowerCase().indexOf(text) != -1));
     }
 
     @timer
@@ -72,6 +84,21 @@ export class AppComponent {
             };
             reader.readAsText(file);
         });
+    }
+
+    updateGraph(holding?: string) {
+        if(holding) {
+            this.graphHoldings.push(holding);
+            this.holdingInput.nativeElement.value = '';
+        }
+
+        // Take the merged data set and get everything ready for it to be charted
+        this.chartResults = Object.keys(this.mergedData)
+            .filter(key => this.graphHoldings.indexOf(key) != -1)
+            .map(key => ({
+                name: key,
+                series: this.mergedData[key].map((val, i) => ({name: i, value: val}))
+            }));
     }
 
     format(text) { return `${text} %`}
