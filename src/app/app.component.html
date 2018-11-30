@@ -4,7 +4,10 @@
     <span>ETF Demo</span>
     <span class="mx-auto"><!-- Spacer --></span>
     <mat-chip-list class="mr-2">
-        <mat-chip *ngFor="let file of files" color="primary">{{file}}</mat-chip>
+        <mat-chip *ngFor="let file of fileNames" color="primary" [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
+            {{file}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
     </mat-chip-list>
 
     <button mat-button (click)="fileUploader.click()">

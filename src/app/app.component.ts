@@ -7,24 +7,42 @@ import {Component} from '@angular/core';
 export class AppComponent {
     chartResults; // This is where the chart reads the data from
     chartHeight = '100%'; // Dynamic height for chart
-    files: string[] = [];
+    fileNames: string[] = [];
 
     // ngx-charts requires a different data structure than the hash map we built so I will use a setter to handle converting it when we go to save the processed data.
-    private _data;
+    private _data = {};
     get data() { return this._data; }
     set data(data) {
         this._data = data;
-        this.chartHeight = `${Object.keys(data).length * 100}px`;
-        this.chartResults = Object.keys(data).map(key => ({name: key, series: data[key].map((val, i) => ({name: i, value: val}))}));
+
+        // merge the files together
+        let mergedData = Object.values(data).reduce((acc, file) => {
+            Object.keys(file).forEach(key =>  {
+                if(!acc[key]) acc[key] = [];
+                file[key].forEach(val => acc[key].push(val));
+            });
+            return acc;
+        }, {});
+
+        // Take the merged data set and get everything ready for it to be charted
+        this.chartHeight = `${Object.keys(mergedData).length * 100}px`;
+        this.chartResults = Object.keys(mergedData).map(key => ({name: key, series: mergedData[key].map((val, i) => ({name: i, value: val}))}));
     }
 
     constructor() { }
 
+    remove(fileName) {
+        // Remove the file
+        delete this.data[fileName];
+        this.data = Object.assign({}, this.data);
+        this.fileNames.splice(this.fileNames.indexOf(fileName), 1);
+    }
+
     upload(fileList: FileList) {
-        // Because we enabled uploading multiple files at once we need to process each one individually
+        // Because we enabled uploading multiple fileNames at once we need to process each one individually
         const files: File[] = Array.from(fileList);
         files.forEach(file => {
-            this.files.push(file.name);
+            this.fileNames.push(file.name);
 
             // Process CSV
             const reader = new FileReader();
@@ -33,7 +51,7 @@ export class AppComponent {
                 const lines = ((<FileReader>e.target).result as string).split('\n');
 
                 // Use regex to grab the holding name and its % market value
-                this.data = lines.map(text => {
+                this.data = Object.assign(this.data, {[file.name]: lines.map(text => {
                     const parse = /^(.+),.+?(\d+\.\d+)%/gm.exec(text);
                     if(parse) return parse.slice(1);
                 }).reduce((acc, line) => {
@@ -45,7 +63,7 @@ export class AppComponent {
                     acc[line[0]].push(Number(line[1]));
 
                     return acc;
-                }, this.data || {});
+                }, {})});
             };
             reader.readAsText(file);
         });
