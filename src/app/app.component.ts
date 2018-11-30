@@ -1,11 +1,13 @@
 import {Component} from '@angular/core';
 import {timer} from './timer';
+import {colorScheme} from './colorScheme';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent {
+    colorScheme = colorScheme; // colors
     chartResults; // This is where the chart reads the data from
     chartHeight = '100%'; // Dynamic height for chart
     timer = window['timer']; // Async pipe to display the timed data

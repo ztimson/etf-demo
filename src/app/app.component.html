@@ -5,7 +5,8 @@
     <small *ngIf="timer" class="text-muted">{{timer}} microseconds to upload</small>
     <span class="mx-auto"><!-- Spacer --></span>
     <mat-chip-list class="mr-2">
-        <mat-chip *ngFor="let file of fileNames" color="primary" [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
+        <mat-chip *ngFor="let file of fileNames; let i = index" class="text-white" [style.backgroundColor]="colorScheme.domain[i]"
+                  [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
             {{file}}
             <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
@@ -19,10 +20,11 @@
 <img *ngIf="!chartResults" class="float-right mt-2 mr-5" src="assets/starthere.png">
 <div *ngIf="chartResults" class="w-100" [style.height]="chartHeight">
     <ngx-charts-bar-horizontal-2d #chart
-                                [results]="chartResults"
-                                [xAxis]="true"
-                                [yAxis]="true"
-                                [xAxisTickFormatting]="format">
+                                  [scheme]="colorScheme"
+                                  [results]="chartResults"
+                                  [xAxis]="true"
+                                  [yAxis]="true"
+                                  [xAxisTickFormatting]="format">
     </ngx-charts-bar-horizontal-2d>
 </div>
 <input #fileUploader type="file" accept="text/csv" multiple hidden (change)="upload(fileUploader.files)">
