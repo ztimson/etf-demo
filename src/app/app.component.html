@@ -2,7 +2,7 @@
 <mat-toolbar>
     <img class="mr-3" src="assets/logo.png" height="36px" width="auto">
     <span class="mr-3">ETF Demo</span>
-    <small *ngIf="timer" cass="text-muted">{{timer}} microseconds to upload</small>
+    <small *ngIf="timer" class="text-muted">{{timer}} microseconds to upload</small>
     <span class="mx-auto"><!-- Spacer --></span>
     <mat-chip-list class="mr-2">
         <mat-chip *ngFor="let file of fileNames" color="primary" [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
