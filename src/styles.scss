@@ -9,3 +9,8 @@ html, body {
 
     font-family: 'Archivo', sans-serif;
 }
+
+// Bootstrap overrides
+.text-muted {
+    color: #bbbbbb !important;
+}

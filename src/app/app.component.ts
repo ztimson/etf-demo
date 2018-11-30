@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {timer} from './timer';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +8,7 @@ import {Component} from '@angular/core';
 export class AppComponent {
     chartResults; // This is where the chart reads the data from
     chartHeight = '100%'; // Dynamic height for chart
-    fileNames: string[] = [];
+    timer = window['timer']; // Async pipe to display the timed data
 
     // ngx-charts requires a different data structure than the hash map we built so I will use a setter to handle converting it when we go to save the processed data.
     private _data = {};
@@ -29,21 +30,23 @@ export class AppComponent {
         this.chartResults = Object.keys(mergedData).map(key => ({name: key, series: mergedData[key].map((val, i) => ({name: i, value: val}))}));
     }
 
-    constructor() { }
+    get fileNames() { return Object.keys(this.data); }
+
+    constructor() {
+        setInterval(() => this.timer = Math.round(window['timer'] * 10) / 10, 250);
+    }
 
     remove(fileName) {
         // Remove the file
         delete this.data[fileName];
         this.data = Object.assign({}, this.data);
-        this.fileNames.splice(this.fileNames.indexOf(fileName), 1);
     }
 
+    @timer
     upload(fileList: FileList) {
         // Because we enabled uploading multiple fileNames at once we need to process each one individually
         const files: File[] = Array.from(fileList);
         files.forEach(file => {
-            this.fileNames.push(file.name);
-
             // Process CSV
             const reader = new FileReader();
             reader.onload = (e: ProgressEvent) => {
