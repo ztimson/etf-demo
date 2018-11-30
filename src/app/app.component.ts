@@ -38,7 +38,10 @@ export class AppComponent {
         // Store the keys for easy referencing
         this.fileNames = Object.keys(this.data);
         this.holdings = Object.keys(this.mergedData).sort();
+
+        // Update the GUI
         this.autoCompleteList.next(this.holdings);
+        this.updateGraph();
     }
 
     constructor(private ngZone: NgZone) {
@@ -50,6 +53,7 @@ export class AppComponent {
         // Remove the file
         delete this.data[fileName];
         this.data = Object.assign({}, this.data);
+        this.updateGraph();
     }
 
     search(text?: string) {
@@ -88,7 +92,8 @@ export class AppComponent {
             };
             reader.readAsText(file);
         });
-        this.fileUploader.nativeElement.value = "";
+
+        this.fileUploader.nativeElement.value = ""; // Clear the file input
     }
 
     updateGraph(holding?: string) {
