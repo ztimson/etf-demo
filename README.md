@@ -9,7 +9,7 @@
 ### ETF Demo
 
   <!-- Description -->
-Simple repository template
+Recruitement project for Enjine
 
 </div>
 
@@ -17,17 +17,31 @@ Simple repository template
 - [ETF Demo](#top)
     - [About](#about)
         - [Built With](#built-with)
+    - [Demo](#demo)
     - [Setup](#setup)
         - [Development](#development)
     - [License](#license)
 
 ## About
-An Angular demo that allows a user to upload CSV files of electronically traded fund data (See the data folder in this project). From there the user can look up funds and compare them with graphs.
+While applying for a contract with Enjine, I was paid to create a sample program for comparing Electronically Traded Funds (ETF) files.
+
+Using Angular, a user can upload two different CSV files & compare the differences using graphs.
+
+This project was deployed using Firebase.
 
 ### Built With
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
 [![Firebase](https://img.shields.io/badge/Firebase-FFFFFF?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
+
+## Demo
+
+Website: TBD
+
+Demo CSV Files:
+ - [File 1](./data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv)
+ - [File 2](./data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv)
+ - [File 3](./data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv)
 
 ## Setup
 
