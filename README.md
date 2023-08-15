@@ -39,9 +39,9 @@ This project was deployed using Firebase.
 Website: TBD
 
 Demo CSV Files:
- - [File 1](./data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv)
- - [File 2](./data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv)
- - [File 3](./data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv)
+ - [data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv](./data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv)
+ - [data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv](./data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv)
+ - [data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv](./data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv)
 
 ## Setup
 
