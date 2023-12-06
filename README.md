@@ -6,18 +6,33 @@
   <img src="https://git.zakscode.com/repo-avatars/0709db0c51d295d2d29b709865bd95f26e351f72a5c993ca63cd9ec4b4a07f43" alt="Logo" width="200" height="200">
 
   <!-- Title -->
-### ETF Demo
+  ### ETF Demo
 
   <!-- Description -->
-Recruitement project for Enjine
+  Recruitement project for Enjine
 
+  <!-- Repo badges -->
+  [![Version](https://img.shields.io/badge/dynamic/json.svg?label=Version&style=for-the-badge&url=https://git.zakscode.com/api/v1/repos/ztimson/etf-demo/tags&query=$[0].name)](https://git.zakscode.com/ztimson/etf-demo/tags)
+  [![Pull Requests](https://img.shields.io/badge/dynamic/json.svg?label=Pull%20Requests&style=for-the-badge&url=https://git.zakscode.com/api/v1/repos/ztimson/etf-demo&query=open_pr_counter)](https://git.zakscode.com/ztimson/etf-demo/pulls)
+  [![Issues](https://img.shields.io/badge/dynamic/json.svg?label=Issues&style=for-the-badge&url=https://git.zakscode.com/api/v1/repos/ztimson/etf-demo&query=open_issues_count)](https://git.zakscode.com/ztimson/etf-demo/issues)
+
+  <!-- Links -->
+
+  ---
+  <div>
+    <a href="https://git.zakscode.com/ztimson/etf-demo/releases" target="_blank">Release Notes</a>
+    • <a href="https://git.zakscode.com/ztimson/etf-demo/issues/new?template=.github%2fissue_template%2fbug.md" target="_blank">Report a Bug</a>
+    • <a href="https://git.zakscode.com/ztimson/etf-demo/issues/new?template=.github%2fissue_template%2fenhancement.md" target="_blank">Request a Feature</a>
+  </div>
+
+  ---
 </div>
 
 ## Table of Contents
 - [ETF Demo](#top)
     - [About](#about)
+        - [Demo](#demo)
         - [Built With](#built-with)
-    - [Demo](#demo)
     - [Setup](#setup)
         - [Development](#development)
     - [License](#license)
@@ -29,12 +44,7 @@ Using Angular, a user can upload two different CSV files & compare the differenc
 
 This project was deployed using Firebase.
 
-### Built With
-[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
-[![Firebase](https://img.shields.io/badge/Firebase-FFFFFF?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
-
-## Demo
+### Demo
 
 Website: TBD
 
@@ -42,6 +52,11 @@ Demo CSV Files:
  - [data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv](./data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv)
  - [data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv](./data/Holding_details_FTSE_Canada_Index_ETF_(VCE).csv)
  - [data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv](./data/Holding_details_FTSE_Canadian_Capped_REIT_Index_ETF_(VRE).csv)
+
+### Built With
+[![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular)](https://angular.io/)
+[![Firebase](https://img.shields.io/badge/Firebase-FFFFFF?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
 
 ## Setup
 
