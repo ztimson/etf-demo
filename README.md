@@ -9,7 +9,7 @@
   ### ETF Demo
 
   <!-- Description -->
-  Recruitement project for Enjine
+  Recruitment project for Enjine
 
   <!-- Repo badges -->
   [![Version](https://img.shields.io/badge/dynamic/json.svg?label=Version&style=for-the-badge&url=https://git.zakscode.com/api/v1/repos/ztimson/etf-demo/tags&query=$[0].name)](https://git.zakscode.com/ztimson/etf-demo/tags)
@@ -46,7 +46,7 @@ This project was deployed using Firebase.
 
 ### Demo
 
-Website: TBD
+Website: https://etf.zakscode.com
 
 Demo CSV Files:
  - [data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv](./data/Holding_details_FTSE_Canada_All_Cap_Index_ETF_(VCN).csv)

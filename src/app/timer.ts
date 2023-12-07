@@ -9,7 +9,7 @@ export function timer(target: any, key: string, descriptor: PropertyDescriptor) 
         const end = window.performance.now() - start;
 
         // Log it
-        window['timer'] = end;
+        (<any>window)['timer'] = end;
         console.log(`${end} microseconds`);
 
         // Return it

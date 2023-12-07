@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Archivo|Material+Icons');
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body {
     padding: 0;
@@ -11,14 +11,13 @@ html, body {
 }
 
 .content-height {
-    height: calc(100vh - 64px);
+    height: calc(100% - 64px);
 }
 
 .w-50 {
     width: 50%;
 }
 
-// Bootstrap overrides
 .text-muted {
     color: #bbbbbb !important;
 }

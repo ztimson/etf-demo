@@ -1,17 +1,17 @@
 <!-- Toolbar -->
 <mat-toolbar>
-    <img class="mr-3" src="assets/logo.png" height="36px" width="auto">
+    <img class="mr-3" src="assets/enjine.png" height="32px" width="auto">
     <span class="mr-3">ETF Demo</span>
     <small *ngIf="timer" class="text-muted">{{timer}} microseconds to upload</small>
     <span class="mx-auto"><!-- Spacer --></span>
-    <mat-chip-list class="mr-2">
+    <mat-chip-listbox class="mr-2">
         <mat-chip *ngFor="let file of fileNames; let i = index" class="text-white"
                   [style.backgroundColor]="colorScheme.domain[i]"
                   [removable]="true" (removed)="remove($event.chip.value)" [value]="file">
             {{file}}
             <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
-    </mat-chip-list>
+    </mat-chip-listbox>
     <button mat-button (click)="fileUploader.click()">
         <mat-icon>add</mat-icon>
         Upload
@@ -28,7 +28,7 @@
     <div class="p-3">
         <mat-form-field class="w-50" appearance="fill">
             <mat-label>Add Holding</mat-label>
-            <mat-chip-list #chipList>
+            <mat-chip-grid #chipList>
                 <mat-chip *ngFor="let holding of graphHoldings; let i = index" [removable]="true" (removed)="graphHoldings.splice(i, 1); updateGraph();">
                     {{holding}}
                     <mat-icon matChipRemove>cancel</mat-icon>
@@ -37,8 +37,8 @@
                        placeholder="Search"
                        [matAutocomplete]="auto"
                        [matChipInputFor]="chipList"
-                       (keyup)="search($event.target.value)">
-            </mat-chip-list>
+                       (keyup)="search($event?.target)">
+            </mat-chip-grid>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="updateGraph($event.option.value); holdingInput.blur();">
                 <mat-option *ngFor="let holding of autoCompleteList | async" [value]="holding">
                     {{holding}}
@@ -48,11 +48,12 @@
     </div>
 
     <!-- Chart -->
-    <ngx-charts-bar-vertical-2d #chart
-                                [scheme]="colorScheme"
-                                [results]="chartResults"
-                                [xAxis]="true"
-                                [yAxis]="true"
-                                [yAxisTickFormatting]="format">
-    </ngx-charts-bar-vertical-2d>
+    <div style="max-height: calc(100% - 80px)">
+        <ngx-charts-bar-vertical-2d class="h-100"
+                                    [results]="chartResults"
+                                    [xAxis]="true"
+                                    [yAxis]="true"
+                                    [yAxisTickFormatting]="format">
+        </ngx-charts-bar-vertical-2d>
+    </div>
 </div>

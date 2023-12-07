@@ -43,3 +43,12 @@ jobs:
               uses: ztimson/actions/tag@develop
               with:
                   tag: ${{env.VERSION}}
+
+    publish:
+        name: Build & Push Dockerfile
+        needs: build
+        uses: ztimson/actions/.github/workflows/docker.yaml@develop
+        with:
+            name: ztimson/etf
+            repository: ${{github.server_url}}/${{github.repository}}.git
+            pass: ${{secrets.DEPLOY_TOKEN}}
