@@ -34,6 +34,7 @@
         - [Demo](#demo)
         - [Built With](#built-with)
     - [Setup](#setup)
+        - [Production](#production)
         - [Development](#development)
     - [License](#license)
 
@@ -59,6 +60,21 @@ Demo CSV Files:
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org/)
 
 ## Setup
+
+<details>
+<summary>
+  <h3 id="production" style="display: inline">
+    Production
+  </h3>
+</summary>
+
+#### Prerequisites
+- [Docker](https://docs.docker.com/install/)
+
+#### Instructions
+1. Run the docker image: `docker run -p 80:80 git.zakscode.com/ztimson/etf:latest`
+2. Open [http://localhost](http://localhost)
+</details>
 
 <details>
 <summary>
